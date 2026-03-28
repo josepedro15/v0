@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="V0">
+  <rect width="32" height="32" fill="#000" />
+  <rect x="1" y="1" width="30" height="30" fill="none" stroke="#dc2626" stroke-width="1.5" />
+  <!-- V -->
+  <path fill="#e5e5e5" d="M7 9h3.2l2.4 8.2h.05L15.1 9h3.1l-3.8 14h-3.6L7 9Z" />
+  <!-- 0 (anel — legível a 16px) -->
+  <ellipse
+    cx="23"
+    cy="16"
+    rx="3.1"
+    ry="6.1"
+    fill="none"
+    stroke="#dc2626"
+    stroke-width="2.2" />
+</svg>
