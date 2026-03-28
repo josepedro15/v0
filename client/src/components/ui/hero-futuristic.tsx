@@ -35,6 +35,7 @@ import {
   add,
 } from "three/tsl";
 import { hero, getContactHref, getContactAnchorProps } from "@/content/v0";
+import { useIsMobile } from "@/hooks/useMobile";
 
 const THREE = THREE_NS;
 const TEXTUREMAP = { src: "https://i.postimg.cc/XYwvXN8D/img-4.png" };
@@ -232,25 +233,25 @@ function HeroOverlay({
   );
 
   return (
-    <div className="pointer-events-none absolute inset-x-0 top-0 z-20 isolate flex h-svh w-full flex-col items-center justify-center px-4 md:px-10 [transform:translateZ(0)]">
+    <div className="pointer-events-none absolute inset-x-0 top-0 z-20 isolate flex h-svh w-full flex-col items-center justify-center pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] md:pl-[max(2.5rem,env(safe-area-inset-left,0px))] md:pr-[max(2.5rem,env(safe-area-inset-right,0px))] [transform:translateZ(0)]">
       <div
         className="flex flex-col items-center will-change-transform"
         style={{
           transform: `translate3d(${-tx}px, ${-ty}px, 0)`,
         }}
       >
-        <div className="pointer-events-auto relative mx-auto w-full max-w-5xl rounded-2xl border border-white/15 bg-black/40 px-5 py-8 text-center shadow-[0_0_48px_rgba(0,0,0,0.35)] md:px-10 md:py-10">
+        <div className="pointer-events-auto relative mx-auto w-full max-w-5xl rounded-2xl border border-white/15 bg-black/40 px-5 py-6 text-center shadow-[0_0_48px_rgba(0,0,0,0.35)] sm:py-8 md:px-10 md:py-10">
           <p className="mx-auto mb-5 inline-block max-w-full border-l-2 border-primary bg-black/45 px-3 py-1.5 text-center text-xs font-mono font-semibold uppercase tracking-[0.2em] text-zinc-100 normal-case">
             {kicker}
           </p>
-          <h1 className="m-0 mx-auto w-full text-center font-display text-3xl font-extrabold uppercase text-white md:text-5xl xl:text-7xl [text-shadow:0_2px_20px_rgba(0,0,0,0.95),0_1px_2px_rgba(0,0,0,0.8)]">
+          <h1 className="m-0 mx-auto w-full text-balance text-center font-display text-3xl font-extrabold uppercase text-white md:text-5xl xl:text-7xl [text-shadow:0_2px_20px_rgba(0,0,0,0.95),0_1px_2px_rgba(0,0,0,0.8)]">
             <span className="flex w-full flex-wrap justify-center gap-x-2 gap-y-1 text-center lg:gap-x-4">
               {titleWords.map((word, index) => (
                 <span key={`${word}-${index}`}>{word}</span>
               ))}
             </span>
           </h1>
-          <p className="m-0 mx-auto mt-6 max-w-3xl px-2 text-center text-xs font-medium normal-case text-zinc-200 md:text-xl xl:text-2xl [text-shadow:0_2px_16px_rgba(0,0,0,0.9),0_1px_2px_rgba(0,0,0,0.85)]">
+          <p className="m-0 mx-auto mt-6 max-w-3xl px-2 text-balance text-center text-sm font-medium normal-case text-zinc-200 sm:text-base md:text-xl xl:text-2xl [text-shadow:0_2px_16px_rgba(0,0,0,0.9),0_1px_2px_rgba(0,0,0,0.85)]">
             {subtitle}
           </p>
 
@@ -309,7 +310,13 @@ class CanvasErrorBoundary extends Component<
   }
 }
 
-function WebGpuCanvas({ reduceMotion }: { reduceMotion: boolean }) {
+function WebGpuCanvas({
+  reduceMotion,
+  dpr,
+}: {
+  reduceMotion: boolean;
+  dpr: number | [number, number];
+}) {
   const onCreated = (state: RootState) => {
     void (state.gl as unknown as THREE_NS.WebGPURenderer).setClearColor(0x000000, 1);
   };
@@ -323,6 +330,7 @@ function WebGpuCanvas({ reduceMotion }: { reduceMotion: boolean }) {
   return (
     <Canvas
       className="pointer-events-auto absolute inset-0 z-0 size-full h-svh min-h-svh w-full touch-none"
+      dpr={dpr}
       flat
       gl={createGl as never}
       onCreated={onCreated}
@@ -343,7 +351,13 @@ export function HeroFuturistic() {
   const [webGpuProbe, setWebGpuProbe] = useState<"pending" | "ok" | "no">("pending");
   const [parallax, setParallax] = useState({ x: 0, y: 0 });
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [canvasDprReady, setCanvasDprReady] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
+  const isMobile = useIsMobile();
+
+  useEffect(() => {
+    setCanvasDprReady(true);
+  }, []);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -391,6 +405,8 @@ export function HeroFuturistic() {
     };
   }, []);
 
+  const canvasDpr: number | [number, number] = !canvasDprReady ? 1 : isMobile ? 1 : [1, 2];
+
   return (
     <header
       ref={headerRef}
@@ -406,14 +422,14 @@ export function HeroFuturistic() {
         {webGpuProbe === "no" && <FallbackBackdrop />}
         {webGpuProbe === "ok" && (
           <CanvasErrorBoundary fallback={<FallbackBackdrop />}>
-            <WebGpuCanvas reduceMotion={reduceMotion} />
+            <WebGpuCanvas reduceMotion={reduceMotion} dpr={canvasDpr} />
           </CanvasErrorBoundary>
         )}
       </div>
 
       {webGpuProbe === "pending" && (
         <div
-          className="absolute top-6 right-6 z-[120] flex items-center gap-2 text-muted-foreground"
+          className="absolute top-[calc(1.5rem+env(safe-area-inset-top,0px))] right-[calc(1.5rem+env(safe-area-inset-right,0px))] z-[120] flex items-center gap-2 text-muted-foreground"
           role="status"
           aria-live="polite"
         >

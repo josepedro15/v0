@@ -30,8 +30,8 @@ export default function SiteHeader() {
   }, [mobileOpen]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-md supports-[backdrop-filter]:bg-background/75">
-      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-4 md:h-16 md:px-10">
+    <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/70 bg-background/90 pt-[env(safe-area-inset-top,0px)] backdrop-blur-md supports-[backdrop-filter]:bg-background/75">
+      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] md:h-16 md:pl-[max(2.5rem,env(safe-area-inset-left,0px))] md:pr-[max(2.5rem,env(safe-area-inset-right,0px))]">
         <a
           href="#"
           className={cn(
@@ -74,12 +74,15 @@ export default function SiteHeader() {
       {mobileOpen ? (
         <div
           id="menu-mobile"
-          className="border-t border-border bg-background md:hidden max-h-[min(70vh,calc(100dvh-3.5rem))] overflow-y-auto"
+          className="border-t border-border bg-background md:hidden max-h-[min(70vh,calc(100dvh-3.5rem-env(safe-area-inset-top,0px)))] overflow-y-auto"
           role="dialog"
           aria-modal="true"
           aria-label="Menu de navegação"
         >
-          <nav className="flex flex-col gap-1 px-4 py-4" aria-label="Navegação principal">
+          <nav
+            className="flex flex-col gap-1 py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))]"
+            aria-label="Navegação principal"
+          >
             {siteNav.map((item) => (
               <a
                 key={item.href}

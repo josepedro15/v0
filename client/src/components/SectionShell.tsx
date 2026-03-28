@@ -41,7 +41,7 @@ export function SectionShell({
       id={id}
       aria-labelledby={ariaLabelledBy}
       className={cn(
-        "w-full scroll-mt-24 px-4 md:scroll-mt-28 md:px-10",
+        "w-full scroll-mt-[calc(6rem+env(safe-area-inset-top,0px))] px-4 md:scroll-mt-[calc(7rem+env(safe-area-inset-top,0px))] md:px-10",
         spacingClass[spacing],
         toneClass[tone],
         className
@@ -79,14 +79,14 @@ export function SectionHeader({
     <div className={cn("mb-10 text-center md:mb-16", className)}>
       <h2
         id={titleId}
-        className="mx-auto mb-4 max-w-5xl text-3xl font-bold leading-tight text-foreground md:mb-6 md:text-5xl xl:text-6xl"
+        className="mx-auto mb-4 max-w-5xl text-balance text-3xl font-bold leading-tight text-foreground md:mb-6 md:text-5xl xl:text-6xl"
       >
         {title}
       </h2>
       {subtitle != null ? (
         <p
           className={cn(
-            "mx-auto text-lg font-medium text-muted-foreground md:text-xl",
+            "mx-auto text-balance text-lg font-medium text-muted-foreground md:text-xl",
             subtitleMaxWidth === "2xl" ? "max-w-2xl" : "max-w-3xl"
           )}
         >

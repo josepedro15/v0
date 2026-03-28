@@ -37,7 +37,7 @@ export const landingHeroScrollCue = cn(
 /** CTA sobre fundo primary (contraste invertido). Sem scale no hover. */
 export const ctaInverseOnPrimary = cn(
   "inline-flex items-center justify-center rounded-sm bg-foreground font-bold uppercase tracking-wider text-background",
-  "px-10 py-4 text-lg shadow-2xl transition-all duration-300 hover:bg-foreground/90 hover:shadow-black/50 md:px-14 md:py-5 md:text-xl",
+  "px-6 py-4 text-base shadow-2xl transition-all duration-300 hover:bg-foreground/90 hover:shadow-black/50 sm:px-10 sm:text-lg md:px-14 md:py-5 md:text-xl",
   focusRingLarge
 );
 

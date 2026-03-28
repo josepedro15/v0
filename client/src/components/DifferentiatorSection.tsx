@@ -22,7 +22,7 @@ export default function DifferentiatorSection() {
             <div className="shrink-0 text-primary" aria-hidden>
               <Crosshair className="size-8" strokeWidth={1.75} />
             </div>
-            <div>
+            <div className="min-w-0">
               <h3 className={cn(landingCardTitle, "mb-2")}>{point.title}</h3>
               <p className="text-base leading-relaxed text-muted-foreground">
                 {point.body}

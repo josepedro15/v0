@@ -15,14 +15,14 @@ export function SitePageShell({ title, description, children, className }: SiteP
     <>
       <a
         href="#conteudo-pagina"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-sm focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-primary-foreground focus:shadow-lg focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-primary-foreground"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-[max(1rem,env(safe-area-inset-left,0px))] focus:top-[max(1rem,env(safe-area-inset-top,0px))] focus:z-[60] focus:rounded-sm focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-primary-foreground focus:shadow-lg focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-primary-foreground"
       >
         Saltar para o conteúdo
       </a>
       <SiteHeader />
       <main
         id="conteudo-pagina"
-        className="min-h-svh w-full bg-background pt-20 md:pt-24"
+        className="min-h-svh w-full bg-background pt-[calc(5rem+env(safe-area-inset-top,0px))] md:pt-[calc(6rem+env(safe-area-inset-top,0px))]"
         tabIndex={-1}
       >
         <div className={cn("mx-auto max-w-3xl px-4 py-12 md:px-10 md:py-16", className)}>

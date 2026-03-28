@@ -15,7 +15,7 @@ export default function CTAFinalSection() {
     >
       <div
         className={cn(
-          "relative overflow-hidden rounded-xl border border-white/20 p-12 text-primary-foreground md:p-16 lg:p-20",
+          "relative overflow-hidden rounded-xl border border-white/20 px-6 py-10 text-primary-foreground sm:px-10 sm:py-12 md:p-16 lg:p-20",
           "bg-primary/35 shadow-[0_8px_48px_rgba(0,0,0,0.45)] backdrop-blur-xl backdrop-saturate-150",
           "ring-1 ring-inset ring-white/10 supports-[backdrop-filter]:bg-primary/25",
           "transition-[box-shadow,background-color] duration-300 hover:border-white/25 hover:bg-primary/40 hover:shadow-[0_12px_56px_rgba(0,0,0,0.5)] hover:supports-[backdrop-filter]:bg-primary/32"
